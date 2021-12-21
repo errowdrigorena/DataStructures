@@ -9,6 +9,7 @@
 #include <iostream>
 //#include <vector>
 #include <Vector/Myvector.h>
+#include <Singly_linked_list/My_Singly_linked_list.h>
 using namespace std;
 
 int main() {
@@ -51,5 +52,24 @@ int main() {
 
 	cout << "last is: " << experiment.back() << endl;
 	cout << "first is: " << experiment.front() << endl;
+
+	My_Singly_linked_list<int> my_list{1, 2, 3};
+	cout << endl << endl;
+	cout << my_list;
+	cout << "insert a seven" << endl;
+
+	my_list[2] = 7;
+	cout << "seven inserted" << endl;
+
+	cout << endl << endl;
+
+	cout << my_list;
+
+	my_list.push_back(5);
+	my_list.push_back(8);
+	my_list.push_front(0);
+
+	cout << my_list;
+
 	return 0;
 }
