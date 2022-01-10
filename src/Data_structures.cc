@@ -71,5 +71,11 @@ int main() {
 
 	cout << my_list;
 
+	cout << "before for " << endl;
+	for( auto val : my_list)
+	{
+	    cout << val.value_ << " ";
+	}
+
 	return 0;
 }

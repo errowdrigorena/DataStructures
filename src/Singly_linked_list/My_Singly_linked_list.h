@@ -11,6 +11,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <functional>
+#include <iterator>
 
 template<typename T> class My_Singly_linked_list;
 template<typename T> std::ostream & operator<<(std::ostream& os, const My_Singly_linked_list<T>& sll);
@@ -26,6 +27,32 @@ template<typename T>
       ~Node(){};
       T value_;
       Node *next_;
+    };
+
+    class iterator : public std::iterator<std::forward_iterator_tag, Node>
+    {
+    public:
+      using pointer = typename std::iterator<std::forward_iterator_tag, Node>::pointer;
+      using reference = typename std::iterator<std::forward_iterator_tag, Node>::reference;
+
+      iterator(pointer ptr) : ptr_{ptr }{}
+      ~iterator(){ ; /*do nothing*/}
+
+     reference operator*() const { return *ptr_; }
+     pointer operator->() { return ptr_; }
+      // Prefix increment
+     iterator& operator++() { ptr_ = ptr_->next_; return *this; }
+
+     // Postfix increment
+     iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
+
+     friend bool operator== (const iterator& lhs, const iterator& rhs) { return lhs.ptr_ == rhs.ptr_; }
+     friend bool operator!= (const iterator& lhs, const iterator& rhs) { return lhs.ptr_ != rhs.ptr_; }
+
+     // shows memory
+     friend std::ostream &operator<<(std::ostream& os, const iterator& it) { os <<  it.ptr_; return os; }
+    private:
+      pointer ptr_;
     };
 
   public:
@@ -49,6 +76,9 @@ template<typename T>
     T front() const {header_->value_; }
     //gets tail_ value (last value)
     T back() const {tail_->value_; }
+
+    iterator begin() const;
+    iterator end() const;
 
     //empty returns true if there is not useful information and false in any other case
     bool empty() const { return size_ == 0;}
@@ -152,6 +182,20 @@ template<typename T>
 	  }
       }
   }
+
+template<typename T>
+typename My_Singly_linked_list<T>::iterator My_Singly_linked_list<T>::begin() const
+    {
+      typename My_Singly_linked_list<T>::iterator first{header_ };
+      return first;
+    }
+
+template<typename T>
+typename My_Singly_linked_list<T>::iterator My_Singly_linked_list<T>::end() const
+    {
+      typename My_Singly_linked_list<T>::iterator last{tail_->next_ }; //by definition should be nullptr
+      return last;
+    }
 
 template<typename T>
   std::ostream & operator<<(std::ostream& os, const My_Singly_linked_list<T>& sll)
