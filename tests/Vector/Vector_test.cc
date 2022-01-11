@@ -45,17 +45,18 @@ TEST(My_Vector_Test, Test_Back)
 	EXPECT_EQ(vector_int_0_1.back(), 1);
 }
 
+//Dangerous test that may corrupt test cases. If it gives problems comment it.
 TEST(My_Vector_Test, Test_Push_Back)
 {
 	std::cout << "In Test push back: " << std::endl;
 	My_vector<int> vector_int_1_2_3{1, 2, 3};
 
-	for(int i=4; i <= 16; i++) //it will increase size 2 times doing so
+	for(int i=4; i <= 6; i++) //it will increase size one time doing so
 	{
 		vector_int_1_2_3.push_back(i);
 	}
 
-	for(int i=0; i < 16; i++)
+	for(int i=0; i < 6; i++)
 	{
 		EXPECT_EQ(vector_int_1_2_3[i], i+1);
 	}

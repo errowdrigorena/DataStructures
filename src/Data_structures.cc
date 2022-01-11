@@ -53,7 +53,7 @@ int main() {
 	cout << "last is: " << experiment.back() << endl;
 	cout << "first is: " << experiment.front() << endl;
 
-	My_Singly_linked_list<int> my_list{1, 2, 3};
+	/*My_Singly_linked_list<int> my_list{1, 2, 3};
 	cout << endl << endl;
 	cout << my_list;
 	cout << "insert a seven" << endl;
@@ -77,5 +77,52 @@ int main() {
 	    cout << val.value_ << " ";
 	}
 
+	cout <<endl;
+	cout << "PRINT MSLL" << endl;
+	cout <<endl << endl << endl;
+
+
+	My_Singly_linked_list<int> msll1 = my_list;
+	My_Singly_linked_list<int> msll_;
+	msll_={1,2,3,4,5,5,2,6,5,0,5};
+
+	for( auto val : msll_)
+	{
+	    cout << val.value_ << " ";
+	}
+	cout <<endl << endl << endl;
+
+	msll_.erase_first_ocurrence(2);
+
+	for( auto val : msll_)
+	{
+	    cout << val.value_ << " ";
+	}
+
+	cout <<endl << endl << endl;
+
+	msll_.erase_every_ocurrence(5);
+
+	for( auto val : msll_)
+	{
+	    cout << val.value_ << " ";
+	}
+
+	cout <<endl << endl << endl;*/
+
+
+	/*My_Singly_linked_list<int> my_list8{1, 1, 2, 3, 1, 3, 2, 5, 5, 6, 6};
+	my_list8.erase_reps();
+	for( auto val : my_list8)
+	{
+	    cout << val.value_ << " ";
+	}
+
+	cout <<endl << endl << endl;*/
+
+	My_Singly_linked_list<int> my_list8{1,2,3,4,5,5,2,6,5,0};
+	my_list8.erase_every_ocurrence(5);
+	cout << my_list8 << endl;
+	cout << 1 << endl << "Finish" << endl;
 	return 0;
 }
