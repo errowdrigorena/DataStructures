@@ -20,16 +20,20 @@ template<typename T> class My_Singly_linked_list;
 template<typename T> std::ostream & operator<<(std::ostream& os, const My_Singly_linked_list<T>& sll);
 //note: the previous declarations are needed in order to put operator<< outside the class{}
 
+template<typename T> class My_advanced_sll;
+
 template<typename T>
   class My_Singly_linked_list
   {
     using Node = Node_singly_linked_list<T>;
     using iterator = Iterator_singly_linked_list<T>;
+    friend My_advanced_sll<T>;
+
   public:
     My_Singly_linked_list (std::initializer_list<T> i_list);
     My_Singly_linked_list () : size_{0 }, header_{nullptr }, tail_{nullptr }{};
     My_Singly_linked_list( const My_Singly_linked_list& input );
-
+    My_Singly_linked_list( const My_Singly_linked_list&& input ) = delete;
     ~My_Singly_linked_list();
     //size returns the amount of useful elements in My_Singly_linked_list
     std::size_t size() const {return size_; }
@@ -78,6 +82,8 @@ template<typename T>
     iterator find_previous(Node* searchable) const;
     void erase_node(Node* eraseable);
     void erase_nodes();
+    T& at (std::size_t index);
+    Node* hoper(std::size_t hops); //it returns a node with a distance hops from header
 
     std::size_t size_;
     Node *header_;
@@ -108,16 +114,22 @@ template<typename T>
   }
 
 template<typename T>
-  T& My_Singly_linked_list<T>::operator[] (std::size_t index)
+  T& My_Singly_linked_list<T>::at (std::size_t index)
   {
     if(index == 0)
       {
-	return header_->value_;
+	  return header_->value_;
       }
 
     Node *aux_node = operate_list (--index);
 
     return aux_node->value_;
+  }
+
+template<typename T>
+  T& My_Singly_linked_list<T>::operator[] (std::size_t index)
+  {
+    return at(index);
   }
 
 template<typename T>
@@ -315,7 +327,7 @@ template<typename T>
 typename My_Singly_linked_list<T>::iterator My_Singly_linked_list<T>::find_previous(Node* searchable) const
   {
     auto output = begin();
-    while( output->next_ != searchable && output != end() )
+    while( output != end() && output->next_ != searchable)
       {
 	output++;
       }
@@ -367,17 +379,27 @@ void My_Singly_linked_list<T>::erase_reps()
 		  { erase_node(node); });
   }
 
+template<typename T>
+  typename My_Singly_linked_list<T>::Node* My_Singly_linked_list<T>::hoper(std::size_t hops)
+  {
+    auto * hop_node = this->header_;
+    for(std::size_t i = 0; i < hops && hop_node != nullptr; i++)
+      {
+	hop_node = hop_node->next_;
+      }
+    return hop_node;
+  }
 
 template<typename T>
   std::ostream & operator<<(std::ostream& os, const My_Singly_linked_list<T>& sll)
   {
-    os << "size = " << sll.size_ << std::endl;
+    /*os << "size = " << sll.size_ << std::endl;
     os << "header ADD = " << sll.header_ << std::endl;
-    os << "tail ADD = " << sll.tail_ << std::endl;
+    os << "tail ADD = " << sll.tail_ << std::endl;*/
 
     os << std::endl << "content = ";
 
-    auto print = [&](typename My_Singly_linked_list<T>::Node *input){ os << input->value_ << " ";};
+    auto print = [&](typename My_Singly_linked_list<T>::Node *input){ os << input->value_ << " " << input << "->" << std::endl;};
     std::size_t aux_size = sll.size_ - 1;
     sll.operate_list (aux_size, print);
 

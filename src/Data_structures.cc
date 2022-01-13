@@ -10,6 +10,9 @@
 //#include <vector>
 #include <Vector/Myvector.h>
 #include <Singly_linked_list/My_Singly_linked_list.h>
+#include <Singly_linked_list/My_advanced_sll.h>
+#include <functional>
+
 using namespace std;
 
 int main() {
@@ -120,9 +123,61 @@ int main() {
 
 	cout <<endl << endl << endl;*/
 
-	My_Singly_linked_list<int> my_list8{1,2,3,4,5,5,2,6,5,0};
+	/*My_Singly_linked_list<int> my_list8{1,2,3,4,5,5,2,6,5,0};
 	my_list8.erase_every_ocurrence(5);
 	cout << my_list8 << endl;
-	cout << 1 << endl << "Finish" << endl;
+	cout << 1 << endl << "Finish" << endl;*/
+
+	My_advanced_sll<int> my_assl{100,2,1,4,3,5,25,6,5,0};
+	/*int one = 1;
+	int two = 2;
+	//auto out = std::max<int>(one,two);
+
+	auto evaluation_getter = [&](std::function<bool(int,int)>comparer )->int
+	    {
+	      int eval = one;
+	      if( comparer(one, two ) )
+		{
+		  eval = two;
+		}
+	      return eval;
+	    };
+
+	auto first = evaluation_getter(std::greater<int>());
+	auto second = evaluation_getter(std::less<int>());
+	cout << "The FIRST is: " << first << endl;
+	cout << "The SECOND is: " << second << endl;*/
+
+	//cout << "std::greater(1,2) = " << std::boolalpha << std::greater(1, 2) << std::endl;
+	cout << "before operation" << endl;
+
+	auto it = my_assl.find_prev();
+
+	if(it == my_assl.end())
+	  {
+	    cout << "as expected" << endl;
+	  }
+	else
+	  {
+	    cout << "QUITE UNexpected" << endl;
+
+	  }
+	cout << "after operation" << endl;
+
+	auto min = my_assl.get_min();
+	auto max = my_assl.get_max();
+	cout << "The min is: " << min->value_ << endl;
+	cout << "The max is: " << max->value_ << endl;
+
+	cout << my_assl << endl;
+
+	cout << "my_assl will bee sorted" << endl;
+	my_assl.sort_by_node( std::greater<int>() );
+	cout << "my_assl has been sorted" << endl;
+	cout << my_assl << endl;
+
+	cout << "my_assl will bee sorted, again" << endl;
+	my_assl.sort_by_node();
+	cout << my_assl << endl;
 	return 0;
 }
