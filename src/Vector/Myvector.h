@@ -2,7 +2,7 @@
  * Myvector.h
  *
  *  Created on: 9 dic 2021
- *      Author: irodriguezi
+ *      Author: iban
  */
 
 #ifndef VECTOR_MYVECTOR_H_
@@ -184,7 +184,7 @@ public:
   //size returns the amount of useful elements in My_vector
   std::size_t size(){return size_; }
 
-  //operator[] providen random access
+  //operator[] provides random access
   T& operator[](std::size_t index)
   {
       if (index >= size_) {
