@@ -100,3 +100,15 @@ TEST(My_Vector_Test, Test_Backward_Iteration)
 		i--;
 	}
 }
+
+TEST(My_Vector_Test, Test_Initialitation_Assigment)
+{
+	My_vector<int> vector_int_1_2={1, 2};
+
+	int i{0 };
+	for(auto it = vector_int_1_2.begin(); it !=vector_int_1_2.end(); it++)
+	{
+		i++;
+		EXPECT_EQ(*it, i);
+	}
+}
